@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import br.com.alura.loja.modelo.Projeto;
 import br.com.alura.loja.modelo.ProjetoDAO;
 
+//Quando formos querer ver o XML pelo Browser deverá ser endereçoServidor+@Path
 @Path("projetos")
 public class ProjetoResource {
 

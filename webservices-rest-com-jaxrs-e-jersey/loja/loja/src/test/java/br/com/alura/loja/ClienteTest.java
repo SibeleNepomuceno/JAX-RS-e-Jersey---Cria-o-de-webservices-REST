@@ -16,6 +16,7 @@ import org.junit.Test;
 import com.thoughtworks.xstream.XStream;
 
 import br.com.alura.loja.modelo.Carrinho;
+import br.com.alura.loja.modelo.Projeto;
 import junit.framework.Assert;
 
 public class ClienteTest {
@@ -35,7 +36,7 @@ public class ClienteTest {
 	 }
      
 
-    @Test
+    //
     public void testaQueBuscarUmCarrinhoTrazOCarrinhoEsperado() {
     	
     	//Cria o servidor cliente
@@ -66,14 +67,15 @@ public class ClienteTest {
         WebTarget target = client.target("http://localhost:8080");
         
         // Conteúdo que vamos pegar, e qual path dentro do cliente vamos acessar para pegar o XML que queremos
-        String conteudo = target.path("/carrinhos").request().get(String.class);
+        //É Projetos porque tem um @Path(projetos) no ProjetoResource
+        String conteudo = target.path("/projetos").request().get(String.class);
         System.out.println(conteudo);
         
         // XML que pegamos dentro do cliente, deserialização usando o XStream
-        Carrinho carrinho = (Carrinho) new XStream().fromXML(conteudo);
+        Projeto projeto = (Projeto) new XStream().fromXML(conteudo);
         
         // Para teste do Junit. Ele vai verificar se o que lemos, tem esse trecho entre as aspas
-        Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
+        Assert.assertEquals(2014, projeto.getAnoDeInicio());
     }
     
     
