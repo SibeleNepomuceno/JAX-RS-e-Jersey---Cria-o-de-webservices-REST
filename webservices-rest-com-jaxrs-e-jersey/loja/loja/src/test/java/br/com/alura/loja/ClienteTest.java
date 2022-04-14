@@ -25,7 +25,7 @@ public class ClienteTest {
 	 //Metodo que inicia o servidor, com anotação @Before: Toda vez que formos executar um teste dessa classe, ele fará o que esta dentro desse metodo, ANTES
 	 @Before
 	 public void startaServidor(){
-		 startaServidor();
+		 Servidor.startaServidor();
 	 }
 	 
 	//Metodo que derruba o servidor, com anotação @After: Toda vez que um teste dessa classe for executado, ele derrubará o servidor, DEPOIS.
@@ -55,6 +55,26 @@ public class ClienteTest {
         Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
     }
     
+    //Atividade 4 - Testando os projetos: De maneira equivalente ao nosso Carrinho, crie um teste para nosso Projeto de id 1. 
+    @Test
+    public void TestandoOsprojetos() {
+    	
+    	//Cria o servidor cliente
+        Client client = ClientBuilder.newClient();
+        
+        //Endereço do cliente
+        WebTarget target = client.target("http://localhost:8080");
+        
+        // Conteúdo que vamos pegar, e qual path dentro do cliente vamos acessar para pegar o XML que queremos
+        String conteudo = target.path("/carrinhos").request().get(String.class);
+        System.out.println(conteudo);
+        
+        // XML que pegamos dentro do cliente, deserialização usando o XStream
+        Carrinho carrinho = (Carrinho) new XStream().fromXML(conteudo);
+        
+        // Para teste do Junit. Ele vai verificar se o que lemos, tem esse trecho entre as aspas
+        Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
+    }
     
     
 }
