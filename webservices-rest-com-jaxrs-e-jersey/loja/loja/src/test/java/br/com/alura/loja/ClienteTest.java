@@ -21,18 +21,11 @@ import junit.framework.Assert;
 public class ClienteTest {
 	
 	 private HttpServer server;
-	
-	@Before
-    public void before() {
-        ResourceConfig config = new ResourceConfig().packages("br.com.alura.loja");
-        URI uri = URI.create("http://localhost:8080/");
-        this.server = GrizzlyHttpServerFactory.createHttpServer(uri, config);
-    }
-
-    @After
-    public void mataServidor() {
-        server.stop();
-    }
+	 
+	 //Criar aqui um metodo que levanta o servidor, com anotação @Before: Toda vez que formos executar um teste dessa classe, ele fará o que esta dentro desse metodo
+	//Criar aqui um metodo que derruba o servidor, com anotação @After: Toda vez que um teste dessa classe for executado, ele derrubará o servidor.
+	 
+	 
 
     @Test
     public void testaQueBuscarUmCarrinhoTrazOCarrinhoEsperado() {
@@ -45,11 +38,12 @@ public class ClienteTest {
         
         // Conteúdo que vamos pegar, e qual path dentro do cliente vamos acessar para pegar o XML que queremos
         String conteudo = target.path("/carrinhos").request().get(String.class);
+        System.out.println(conteudo);
         
-       /* // XML que pegamos dentro do cliente, serialização/deserialização usando o XStream
+        // XML que pegamos dentro do cliente, deserialização usando o XStream
         Carrinho carrinho = (Carrinho) new XStream().fromXML(conteudo);
         
         // Para teste do Junit. Ele vai verificar se o que lemos, tem esse trecho entre as aspas
-        Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());*/
+        Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
     }
 }
