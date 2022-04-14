@@ -20,12 +20,20 @@ import junit.framework.Assert;
 
 public class ClienteTest {
 	
-	 private HttpServer server;
+	 private HttpServer server;	 
 	 
-	 //Criar aqui um metodo que levanta o servidor, com anotação @Before: Toda vez que formos executar um teste dessa classe, ele fará o que esta dentro desse metodo
-	//Criar aqui um metodo que derruba o servidor, com anotação @After: Toda vez que um teste dessa classe for executado, ele derrubará o servidor.
+	 //Metodo que inicia o servidor, com anotação @Before: Toda vez que formos executar um teste dessa classe, ele fará o que esta dentro desse metodo, ANTES
+	 @Before
+	 public void startaServidor(){
+		 startaServidor();
+	 }
 	 
-	 
+	//Metodo que derruba o servidor, com anotação @After: Toda vez que um teste dessa classe for executado, ele derrubará o servidor, DEPOIS.
+	 @After
+	 public void stopServidor(){
+		 server.stop();
+	 }
+     
 
     @Test
     public void testaQueBuscarUmCarrinhoTrazOCarrinhoEsperado() {
@@ -46,4 +54,7 @@ public class ClienteTest {
         // Para teste do Junit. Ele vai verificar se o que lemos, tem esse trecho entre as aspas
         Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
     }
+    
+    
+    
 }

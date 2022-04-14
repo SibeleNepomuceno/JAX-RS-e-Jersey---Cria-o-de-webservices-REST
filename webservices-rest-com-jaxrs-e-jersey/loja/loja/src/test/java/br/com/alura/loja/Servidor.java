@@ -10,10 +10,15 @@ import org.junit.Before;
 
 public class Servidor {
 
-	
+	//Comandos de iniciação de servidor. Poderemos chama-lo em outras classes, quando quisermos startar o servidor
+	public static void startaServidor(){
+		 ResourceConfig config = new ResourceConfig().packages("br.com.alura.loja");
+	        URI uri = URI.create("http://localhost:8080/");
+	        HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, config);
+	}
 	public static void main(String[] args) throws IOException {
-        System.out.println("Servidor rodando");
-        System.in.read();
+	        System.out.println("Servidor rodando");
+	        System.in.read();
     }
 	
 }
