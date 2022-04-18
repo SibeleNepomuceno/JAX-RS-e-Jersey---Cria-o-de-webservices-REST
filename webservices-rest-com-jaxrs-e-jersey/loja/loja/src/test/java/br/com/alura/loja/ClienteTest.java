@@ -37,6 +37,7 @@ public class ClienteTest {
      
 
     //
+	 @Test
     public void testaQueBuscarUmCarrinhoTrazOCarrinhoEsperado() {
     	
     	//Cria o servidor cliente
@@ -46,7 +47,7 @@ public class ClienteTest {
         WebTarget target = client.target("http://localhost:8080");
         
         // Conteúdo que vamos pegar, e qual path dentro do cliente vamos acessar para pegar o XML que queremos
-        String conteudo = target.path("/carrinhos").request().get(String.class);
+        String conteudo = target.path("/carrinhos/1").request().get(String.class);
         System.out.println(conteudo);
         
         // XML que pegamos dentro do cliente, deserialização usando o XStream
@@ -57,7 +58,6 @@ public class ClienteTest {
     }
     
     //Atividade 4 - Testando os projetos: De maneira equivalente ao nosso Carrinho, crie um teste para nosso Projeto de id 1. 
-    @Test
     public void TestandoOsprojetos() {
     	
     	//Cria o servidor cliente
