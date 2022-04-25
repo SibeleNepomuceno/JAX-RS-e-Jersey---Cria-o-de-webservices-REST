@@ -1,11 +1,16 @@
 package br.com.alura.loja.resource;
 
+import java.net.URI;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -31,9 +36,10 @@ public class ProjetoResource {
 	
 	//Metodo de adicionar
     @POST
-    @Produces(MediaType.APPLICATION_XML)
-  // @Produces(MediaType.APPLICATION_JSON)
-    public String adiciona(String conteudo) {
+//  @Produces(MediaType.APPLICATION_XML)
+ // @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_XML)
+    public Response adiciona(String conteudo) {
     	
     	//Para XML
         Projeto projeto = (Projeto) new XStream().fromXML(conteudo);
@@ -42,7 +48,19 @@ public class ProjetoResource {
         //Para Json
        //Fazer depois
     	
-       return "<status>Sucesso PROJETOS</status>";
+        // return "<status>Sucesso</status>"; nao precisamos disso, pq o status code ja retorna o resultado
+        URI uri = URI.create("/projetos/"+ projeto.getId()); 
+       return Response.created(uri).build();//Para o return ser o resultado do status code
+    }
+    
+    
+  //Metodo de exclusão
+    @Path("{id}")
+    @DELETE
+    public Response removeProjeto(@PathParam("id") long id) {
+    	new ProjetoDAO().remove(id);
+        return Response.ok().build();
+
     }
 }
 
